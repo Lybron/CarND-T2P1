@@ -69,10 +69,13 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float sqroot = sqrt(squares);
   float sqr_prod = squares * sqroot;
 
-  MatrixXd Hj;
-  Hj << px/sqroot,               py/sqroot,                      0,          0,
-                -py/squares,                      px/squares,                     0,          0,
-                py*((vx*py) - (vy*px))/sqr_prod,  px*((vy*px) - (vx*py))/sqr_prod, px/sqroot,  py/sqroot;
+  MatrixXd j = MatrixXd(3,4);
 
-  return Hj;
+  cout << "Created matrix" << endl;
+
+  j <<  px/sqroot, py/sqroot,0,0,
+        -py/squares,px/squares,0,0,
+        py*((vx*py) - (vy*px))/sqr_prod, px*((vy*px) - (vx*py))/sqr_prod, px/sqroot, py/sqroot;
+
+  return j;
 }
