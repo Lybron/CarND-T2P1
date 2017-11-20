@@ -42,6 +42,9 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   // square root
   rmse = rmse.array().sqrt();
 
+  cout << "RMSE:" << endl;
+  cout << rmse << endl;
+
   return rmse;
 }
 
@@ -66,9 +69,10 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float sqroot = sqrt(squares);
   float sqr_prod = squares * sqroot;
 
-  Hj << px/sqroot,                        py/sqroot,                      0,          0,
-        -py/squares,                      px/squares,                     0,          0,
-        py*((vx*py) - (vy*px))/sqr_prod,  px*((vy*px) - (vx*py))sqr_prod, px/sqroot,  py/sqroot;
+  MatrixXd Hj;
+  Hj << px/sqroot,               py/sqroot,                      0,          0,
+                -py/squares,                      px/squares,                     0,          0,
+                py*((vx*py) - (vy*px))/sqr_prod,  px*((vy*px) - (vx*py))/sqr_prod, px/sqroot,  py/sqroot;
 
   return Hj;
 }
